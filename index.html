@@ -372,12 +372,6 @@ th{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--su
   .amarelinha{padding-top:0}
   .giz.mo{display:none}
 }
-/* movimento reduzido: as animações param no estado de repouso */
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.01ms!important;transition-delay:0s!important}
-  .bolinha,.balao{display:none}
-}
 </style>
 </head>
 <body>
@@ -672,7 +666,7 @@ th{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--su
 (function(){
   document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');
   var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
-  var fino=window.matchMedia('(hover:hover) and (pointer:fine)').matches,calmo=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fino=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
   var cofre={le:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},grava:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
   function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 
@@ -711,7 +705,7 @@ th{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--su
 
   /* bolinha que segue o mouse + giz em paralaxe (dorme quando parado) */
   var bol=$('#bolinha'),bx=0,by=0,vx=0,vy=0,px=0,py=0,mx=0,my=0,tx=0,ty=0,fundos=$$('[data-fundo]'),ativo=false;
-  function acorda(){if(calmo)return;if(!ativo){ativo=true;requestAnimationFrame(quadro)}}
+  function acorda(){if(!ativo){ativo=true;requestAnimationFrame(quadro)}}
   function quadro(){
     tx+=(mx-tx)*.07;ty+=(my-ty)*.07;
     var vh=innerHeight;
@@ -728,7 +722,7 @@ th{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--su
 
   /* balões */
   var cores=['#e02229','#1c2dae','#ffc928','#8ed0ff','#ffffff'];
-  function baloes(n){if(calmo)return;for(var i=0;i<(n||26);i++){(function(i){var b=el('i','balao');b.style.left=(Math.random()*96)+'vw';b.style.setProperty('--c',cores[i%cores.length]);b.style.setProperty('--t',(3.2+Math.random()*2.6)+'s');b.style.setProperty('--dx',(Math.random()*160-80)+'px');b.style.setProperty('--rot',(Math.random()*40-20)+'deg');b.style.animationDelay=(Math.random()*.9)+'s';document.body.appendChild(b);setTimeout(function(){b.remove()},7200)})(i)}}
+  function baloes(n){for(var i=0;i<(n||26);i++){(function(i){var b=el('i','balao');b.style.left=(Math.random()*96)+'vw';b.style.setProperty('--c',cores[i%cores.length]);b.style.setProperty('--t',(3.2+Math.random()*2.6)+'s');b.style.setProperty('--dx',(Math.random()*160-80)+'px');b.style.setProperty('--rot',(Math.random()*40-20)+'deg');b.style.animationDelay=(Math.random()*.9)+'s';document.body.appendChild(b);setTimeout(function(){b.remove()},7200)})(i)}}
 
   /* mural (CMS de demonstração) */
   var semente=[
