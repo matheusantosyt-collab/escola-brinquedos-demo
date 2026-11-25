@@ -1,5 +1,8 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
 import ClickSpark from './rb/ClickSpark/ClickSpark'
+import GradualBlur from './rb/GradualBlur/GradualBlur'
+import { MODOS, topoNatural, useTransicoes } from './transicoes'
+import Seletor from './secoes/Seletor'
 import { DEFS } from './simbolos'
 import { useGuardado } from './comum'
 import { SEMENTE } from './lib/mural'
@@ -15,18 +18,60 @@ import Matricula from './secoes/Matricula'
 import Rodape from './secoes/Rodape'
 import Dialogos from './secoes/Dialogos'
 
-/** Qual seção está no meio da tela. */
+/** Qual seção está no meio da tela: a última cujo topo já passou da metade (funciona com as seções presas). */
 function useSecaoAtual() {
   const [secao, setSecao] = useState('inicio')
   useEffect(() => {
-    const io = new IntersectionObserver(
-      (es) => es.forEach((e) => e.isIntersecting && setSecao(e.target.id)),
-      { rootMargin: '-45% 0px -45% 0px' }
-    )
-    document.querySelectorAll('main section[id]').forEach((s) => io.observe(s))
-    return () => io.disconnect()
+    let pedido = 0
+    const mede = () => {
+      pedido = 0
+      let atual = 'inicio'
+      document.querySelectorAll('main > section[id]').forEach((s) => {
+        if (s.getBoundingClientRect().top <= window.innerHeight / 2) atual = s.id
+      })
+      setSecao(atual)
+    }
+    const agenda = () => pedido || (pedido = requestAnimationFrame(mede))
+    addEventListener('scroll', agenda, { passive: true })
+    addEventListener('resize', agenda)
+    mede()
+    return () => {
+      removeEventListener('scroll', agenda)
+      removeEventListener('resize', agenda)
+      cancelAnimationFrame(pedido)
+    }
   }, [])
   return secao
+}
+
+/** Links #secao rolam até o topo natural da seção (o sticky confundiria a rolagem padrão). */
+function useLinksDeSecao() {
+  useEffect(() => {
+    const clique = (e) => {
+      const a = e.target.closest('a[href^="#"]')
+      if (!a) return
+      const y = topoNatural(a.getAttribute('href').slice(1))
+      if (y == null) return
+      e.preventDefault()
+      window.scrollTo({ top: y + 1, behavior: 'smooth' })
+    }
+    document.addEventListener('click', clique, true)
+    return () => document.removeEventListener('click', clique, true)
+  }, [])
+}
+
+/** Modo de transição: ?transicao=portal|tinta|folhas no link, senão o último escolhido. */
+function modoInicial() {
+  const daUrl = new URLSearchParams(location.search).get('transicao')
+  const ok = (m) => MODOS.some(([id]) => id === m)
+  if (ok(daUrl)) return daUrl
+  try {
+    const salvo = localStorage.getItem('ebb_transicao')
+    if (ok(salvo)) return salvo
+  } catch {
+    /* sem localStorage */
+  }
+  return 'portal'
 }
 
 /** Pausa as animações das seções fora da tela (classe .off do CSS original). */
@@ -83,6 +128,20 @@ function useParalaxe() {
 
 export default function App() {
   const secao = useSecaoAtual()
+  useLinksDeSecao()
+  const [modo, setModo] = useState(modoInicial)
+  useTransicoes(modo)
+  const trocaModo = (m) => {
+    setModo(m)
+    try {
+      localStorage.setItem('ebb_transicao', m)
+    } catch {
+      /* sem localStorage */
+    }
+    const url = new URL(location.href)
+    url.searchParams.set('transicao', m)
+    history.replaceState(null, '', url)
+  }
   usePausaForaDaTela()
   useParalaxe()
   const [recados, setRecados] = useGuardado('ebb_recados', SEMENTE)
@@ -125,6 +184,9 @@ export default function App() {
           <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1.1.1-1.7-.1-1.6-.5-3.5-1.5-5.2-4.2-1.2-1.8-1.3-3.2-.3-4.3.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2 0 .4-.1.6l-.7.9c.7 1.3 1.8 2.3 3.2 2.9l.9-1c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3 0 .2 0 .4-.2.6z" />
         </svg>
       </a>
+      <Seletor modo={modo} onModo={trocaModo} />
+      {/* desfoque sutil no pé da tela (Gradual Blur, React Bits) */}
+      <GradualBlur target="page" position="bottom" height="5.5rem" strength={1.2} layers={6} curve="bezier" zIndex={50} />
       <Dialogos
         ref={dialogos}
         recados={recados}
@@ -132,7 +194,7 @@ export default function App() {
         contatos={contatos}
         onPublicado={(id) => {
           despacha({ tipo: 'publicado', id })
-          document.getElementById('mural').scrollIntoView()
+          window.scrollTo({ top: topoNatural('mural') + 1, behavior: 'smooth' })
         }}
       />
     </ClickSpark>
