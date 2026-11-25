@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import GooeyNav from '../rb/GooeyNav/GooeyNav'
-import { Btn, IMG } from '../comum'
+import { Btn, IMG, useLargura } from '../comum'
 
 export const LINKS = [
   { label: 'Ensino', href: '#ensino' },
@@ -31,6 +31,8 @@ export default function Doca({ secao, onEntrar }) {
   }, [aberto])
 
   const i = LINKS.findIndex((l) => l.href === '#' + secao)
+  // o Gooey Nav desenha com WebGL: só entra no desktop, onde é exibido (abaixo de 980px vale o botão Menu)
+  const desktop = useLargura() > 980
 
   return (
     <header className={'doca vidro' + (aberto ? ' aberto' : '')}>
@@ -43,6 +45,7 @@ export default function Doca({ secao, onEntrar }) {
         </b>
         <span className="demo">DEMO</span>
       </a>
+      {desktop && (
       <div className={'gooey-wrap' + (i < 0 ? ' sem-ativo' : '')}>
         <GooeyNav
           items={LINKS}
@@ -54,6 +57,7 @@ export default function Doca({ secao, onEntrar }) {
           activeTextColor="#141a4d"
         />
       </div>
+      )}
       <nav id="menu" className="menu-cel" aria-label="Seções">
         {LINKS.map((l) => (
           <a key={l.href} href={l.href} onClick={() => setAberto(false)}>

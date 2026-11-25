@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Btn, Surge, Uso } from '../comum'
 import { ordenaRecados } from '../lib/mural'
 import { hoje, diaCurto } from '../lib/datas'
@@ -11,8 +10,7 @@ const FILTROS = [
 const PAPEIS = ['#fff', '#fff3b0', '#ffdfe1']
 const GIROS = ['-3deg', '2deg', '-1.5deg', '3deg']
 
-export default function Mural({ recados, novo, onPublicar }) {
-  const [filtro, setFiltro] = useState('todos')
+export default function Mural({ recados, filtro, novo, onFiltrar, onPublicar }) {
   const lista = ordenaRecados(recados, filtro, hoje())
   return (
     <section className="mural" id="mural">
@@ -32,7 +30,7 @@ export default function Mural({ recados, novo, onPublicar }) {
           </Surge>
           <div className="abas" role="group" aria-label="Filtrar recados">
             {FILTROS.map(([id, rotulo]) => (
-              <button key={id} type="button" aria-pressed={filtro === id} onClick={() => setFiltro(id)}>
+              <button key={id} type="button" aria-pressed={filtro === id} onClick={() => onFiltrar(id)}>
                 {rotulo}
               </button>
             ))}

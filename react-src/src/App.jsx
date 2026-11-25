@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useReducer, useRef, useState } from 'react'
 import ClickSpark from './rb/ClickSpark/ClickSpark'
 import { DEFS } from './simbolos'
 import { useGuardado } from './comum'
 import { SEMENTE } from './lib/mural'
+import { estadoMural, MURAL_INICIAL } from './lib/muralEstado'
 import Doca from './secoes/Doca'
 import Trilho from './secoes/Trilho'
 import Inicio from './secoes/Inicio'
@@ -86,7 +87,7 @@ export default function App() {
   useParalaxe()
   const [recados, setRecados] = useGuardado('ebb_recados', SEMENTE)
   const [contatos, setContatos] = useGuardado('ebb_contatos', [])
-  const [novo, setNovo] = useState(null)
+  const [mural, despacha] = useReducer(estadoMural, MURAL_INICIAL)
   const dialogos = useRef(null)
   const abreLogin = (perfil) => dialogos.current.login(perfil)
   const abrePrivacidade = () => dialogos.current.privacidade()
@@ -105,7 +106,9 @@ export default function App() {
         <Escola />
         <Mural
           recados={recados}
-          novo={novo}
+          filtro={mural.filtro}
+          novo={mural.novo}
+          onFiltrar={(filtro) => despacha({ tipo: 'filtrar', filtro })}
           onPublicar={() => abreLogin('secretaria')}
         />
         <Matricula onContato={(c) => setContatos((l) => [...l, c])} onPrivacidade={abrePrivacidade} />
@@ -128,7 +131,7 @@ export default function App() {
         setRecados={setRecados}
         contatos={contatos}
         onPublicado={(id) => {
-          setNovo(id)
+          despacha({ tipo: 'publicado', id })
           document.getElementById('mural').scrollIntoView()
         }}
       />
