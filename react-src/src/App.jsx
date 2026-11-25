@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
 import ClickSpark from './rb/ClickSpark/ClickSpark'
+import GradualBlur from './rb/GradualBlur/GradualBlur'
 import { DEFS } from './simbolos'
 import { useGuardado } from './comum'
 import { SEMENTE } from './lib/mural'
@@ -125,6 +126,8 @@ export default function App() {
           <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1.1.1-1.7-.1-1.6-.5-3.5-1.5-5.2-4.2-1.2-1.8-1.3-3.2-.3-4.3.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2 0 .4-.1.6l-.7.9c.7 1.3 1.8 2.3 3.2 2.9l.9-1c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3 0 .2 0 .4-.2.6z" />
         </svg>
       </a>
+      {/* desfoque sutil no pé da tela (Gradual Blur, React Bits) */}
+      <GradualBlur target="page" position="bottom" height="5.5rem" strength={1.2} layers={6} curve="bezier" zIndex={50} />
       <Dialogos
         ref={dialogos}
         recados={recados}
