@@ -189,7 +189,7 @@ h1 em{font-style:normal;color:var(--amar)}
 .nota-fonte{margin-top:26px;font-size:.84rem;color:#fff}
 .corrente{position:absolute;left:0;right:0;bottom:0;display:flex;overflow:hidden;pointer-events:none}
 .corrente div{display:flex;flex-shrink:0;animation:marcha 40s linear infinite;will-change:transform}
-.corrente svg{width:clamp(54px,7vw,86px);margin-right:-1.1%;fill:#fff;flex-shrink:0;transform-origin:50% 100%;animation:danca 1.2s ease-in-out infinite alternate;animation-delay:var(--dl)}
+.corrente svg{width:clamp(54px,7vw,86px);margin-right:calc(clamp(54px,7vw,86px) * -.242);fill:#fff;flex-shrink:0;transform-origin:50% 100%;animation:danca 1.2s ease-in-out infinite alternate;animation-delay:var(--dl)}
 @keyframes marcha{to{transform:translateX(-100%)}}
 @keyframes danca{from{transform:rotate(-5deg)}to{transform:rotate(5deg) translateY(-6px)}}
 
@@ -409,13 +409,13 @@ th{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--su
   .nota-fonte{font-size:.74rem;margin-top:18px;opacity:.85}
   .corrente{bottom:28px} /* crianças ficam com a cabeça acima da tinta, como no computador */
 
-  /* 4 · escola: varal desliza, adesivos em grade */
-  .varal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:18px;margin:22px -18px 0;padding:34px 18px 30px;scrollbar-width:none;
-    background:linear-gradient(var(--tinta),var(--tinta)) 0 22px/100% 3px no-repeat;background-attachment:local}
-  .varal::-webkit-scrollbar{display:none}
-  .fio{display:none}
-  .pola{flex:0 0 56%;scroll-snap-align:center;margin-top:0!important;padding:9px 9px 42px}
-  .pola figcaption{font-size:1.1rem;bottom:10px}
+  /* 4 · escola: as 3 fotos no cordão (como no computador), adesivos em grade */
+  .varal{grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px;padding-top:26px}
+  .fio{height:40px}
+  .pola{padding:6px 6px 30px;margin-top:0!important}
+  .pola:nth-of-type(2){margin-top:6px!important}
+  .pola::before{top:-18px;width:12px;height:30px;margin-left:-6px}
+  .pola figcaption{font-size:.85rem;bottom:7px}
   .adesivos{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
   .ade{border-width:3px;padding:7px 10px 7px 7px;gap:8px;border-radius:18px;box-shadow:0 8px 14px -8px rgba(20,26,77,.5)}
   .ade i{width:30px;height:30px}
