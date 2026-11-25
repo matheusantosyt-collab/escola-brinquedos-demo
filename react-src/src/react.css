@@ -1,0 +1,26 @@
+/* Ajustes da versão React: encaixe dos componentes React Bits no visual da amarelinha */
+
+/* Gooey Nav dentro da doca de vidro */
+.doca .gooey-wrap .gooey-nav { --gn-font: 15px; font-weight: 700; font-family: var(--body) }
+.doca .gooey-wrap a { text-decoration: none; color: var(--tinta) }
+/* fora das quatro seções do menu (início e matrícula) a pílula some */
+.gooey-wrap .gooey-nav__canvas, .gooey-wrap .gooey-nav__fallback, .gooey-wrap .gooey-nav__list--active { transition: opacity .3s }
+.gooey-wrap.sem-ativo .gooey-nav__canvas, .gooey-wrap.sem-ativo .gooey-nav__fallback, .gooey-wrap.sem-ativo .gooey-nav__list--active { opacity: 0 }
+
+/* Título com Split Text: as três partes seguem na mesma linha */
+h1 .split-parent { display: inline !important }
+h1 em.split-parent { font-style: normal; color: var(--amar) }
+
+/* Varal de fotos com Bounce Cards */
+.varal-rb { position: relative; margin-top: 54px; padding-top: 30px; display: grid; justify-items: center }
+.varal-rb .fio { top: 0 }
+.legendas { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 26px; margin: 18px 0 0; padding: 0; list-style: none; font: 400 1.35rem var(--display) }
+
+/* Magnet: o botão continua alinhado com o link ao lado */
+.acoes > div { vertical-align: middle }
+
+/* Fila de crianças (Logo Loop) acima da faixa de tinta da seção seguinte */
+.familia .corrente { bottom: 58px }
+
+/* Links do menu do celular (o estilo base do HTML ficava em .doca nav a) */
+.doca .menu-cel a { text-decoration: none; font: 700 1rem var(--body); border-radius: 999px; color: var(--tinta) }
