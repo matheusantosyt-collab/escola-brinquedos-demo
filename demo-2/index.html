@@ -1207,7 +1207,7 @@ html{overflow-x:clip;scroll-padding-top:120px}
   var preference = matchMedia('(prefers-reduced-motion: reduce)');
   var settingsUrl = new URL(location.href);
   var reduction = settingsUrl.searchParams.get('animacoes');
-  try { reduction = reduction || sessionStorage.getItem('ebb_demo2_'); } catch (error) {}
+  try { reduction = reduction || sessionStorage.getItem('ebb_demo2_motion'); } catch (error) {}
   var reduce = reduction ? reduction === 'paused' : preference.matches;
   if (reduce) document.body.classList.add('calm');
   var fine = matchMedia('(pointer: fine)').matches;
@@ -1224,7 +1224,7 @@ html{overflow-x:clip;scroll-padding-top:120px}
   cb.addEventListener('click', function(){
     var mode = reduce ? 'enabled' : 'paused';
     try {
-      sessionStorage.setItem('ebb_demo2_', mode);
+      sessionStorage.setItem('ebb_demo2_motion', mode);
       if (!settingsUrl.searchParams.has('animacoes')) { location.reload(); return; }
     } catch (error) {}
     settingsUrl.searchParams.set('animacoes', mode);
@@ -1580,7 +1580,7 @@ html{overflow-x:clip;scroll-padding-top:120px}
     {id:'s2',tipo:'evento',titulo:'Dia do faz de conta',data:'2026-11-27',texto:'As crianças vêm fantasiadas e a escola vira palco de histórias.',ex:true},
     {id:'s3',tipo:'evento',titulo:'Festa de encerramento',data:'2026-12-12',texto:'Apresentações das turmas e confraternização com as famílias.',ex:true}
   ];
-  var recados=cofre.le('ebb_demo2_',null)||semente,filtro='todos',quadroNotas=$('#notas'),lista=$('#cmsLista'),newNote=null;
+  var recados=cofre.le('ebb_demo2_recados',null)||semente,filtro='todos',quadroNotas=$('#notas'),lista=$('#cmsLista'),newNote=null;
   function dia(d){var p=d.split('-'),m=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];return (+p[2])+' '+m[+p[1]-1]+' '+p[0]}
   function pinta(){
     quadroNotas.textContent='';
@@ -1601,7 +1601,7 @@ html{overflow-x:clip;scroll-padding-top:120px}
       quadroNotas.appendChild(card);
     });
     lista.textContent='';
-    recados.forEach(function(r){var d=el('div');d.appendChild(el('span',null,r.titulo));var b=el('button',null,'Tirar');b.type='button';b.addEventListener('click',function(){recados=recados.filter(function(x){return x.id!==r.id});cofre.grava('ebb_demo2_',recados);pinta()});d.appendChild(b);lista.appendChild(d)});
+    recados.forEach(function(r){var d=el('div');d.appendChild(el('span',null,r.titulo));var b=el('button',null,'Tirar');b.type='button';b.addEventListener('click',function(){recados=recados.filter(function(x){return x.id!==r.id});cofre.grava('ebb_demo2_recados',recados);pinta()});d.appendChild(b);lista.appendChild(d)});
   }
   pinta();
   var muralTabs = $$('.abas button');
@@ -1632,13 +1632,13 @@ html{overflow-x:clip;scroll-padding-top:120px}
     e.preventDefault();
     var r={id:'r'+Date.now(),tipo:$('#cTipo').value,titulo:$('#cTitulo').value.trim(),data:$('#cData').value,texto:$('#cTexto').value.trim()};
     if(!r.titulo||!r.data||!r.texto)return;
-    recados.push(r);cofre.grava('ebb_demo2_',recados);
+    recados.push(r);cofre.grava('ebb_demo2_recados',recados);
     newNote = r.id;
     filterMural(muralTabs[0]);e.target.reset();$('#cData').value=r.data;$('#login').close();$('#mural').scrollIntoView();
   });
 
   /* formulário: salva o contato, depois abre o WhatsApp */
-  var contatos=cofre.le('ebb_demo2_',[]);
+  var contatos=cofre.le('ebb_demo2_contatos',[]);
   function pintaContatos(){var tb=$('#contatos');tb.textContent='';
     if(!contatos.length){var tr=el('tr'),td=el('td','fraco','Nenhum contato ainda. Envie o formulário de visita para ver aqui.');td.colSpan=6;tr.appendChild(td);tb.appendChild(tr);return}
     contatos.slice().reverse().forEach(function(c){var tr=el('tr');[c.id,c.nome,c.tel,c.etapa,c.turno,c.novas?'Sim':'Não'].forEach(function(v){tr.appendChild(el('td',null,v))});tb.appendChild(tr)})}
@@ -1673,7 +1673,7 @@ html{overflow-x:clip;scroll-padding-top:120px}
     if(!$('#fLgpd').checked){erro.textContent='Marque a autorização de uso dos dados para continuar.';$('#fLgpd').focus();return}
     erro.textContent='';
     var c={id:'EBB-'+String(Date.now()).slice(-6),nome:nome,tel:tel.value,etapa:etapa,turno:$('#fTurno').value,novas:$('#fNovas').checked,aceite:new Date().toISOString(),politica:'v1'};
-    contatos.push(c);cofre.grava('ebb_demo2_',contatos);pintaContatos();
+    contatos.push(c);cofre.grava('ebb_demo2_contatos',contatos);pintaContatos();
     var msg='Olá! Sou '+nome+' e gostaria de agendar uma visita. Interesse: '+etapa+'. Melhor horário: '+c.turno.toLowerCase()+'. Protocolo '+c.id+'.';
     var url='https://wa.me/5581989574792?text='+encodeURIComponent(msg);
     $('#linkZap').href=url;$('#feitoNome').textContent=nome.split(' ')[0];$('#feitoId').textContent=c.id;
@@ -1704,10 +1704,10 @@ html{overflow-x:clip;scroll-padding-top:120px}
     if(e.target.closest('[data-fecha]')){e.target.closest('dialog').close();return}
     if(e.target.closest('[data-volta]')){mostra('perfil');return}
     var p=e.target.closest('.perfil');if(p){entra(p.dataset.perfil);return}
-    var c=e.target.closest('[data-cookie]');if(c){cofre.grava('ebb_demo2_',c.dataset.cookie);$('#cookies').hidden = true;return}
+    var c=e.target.closest('[data-cookie]');if(c){cofre.grava('ebb_demo2_cookie',c.dataset.cookie);$('#cookies').hidden = true;return}
     if(e.target.tagName==='DIALOG')e.target.close();
   });
-  if(!cofre.le('ebb_demo2_',null))setTimeout(function(){$('#cookies').hidden = false},1800);
+  if(!cofre.le('ebb_demo2_cookie',null))setTimeout(function(){$('#cookies').hidden = false},1800);
 
   // Confete do formulário.
   var cc = $('#confetti'), cx2 = cc.getContext('2d'), bits = [], running = false;
