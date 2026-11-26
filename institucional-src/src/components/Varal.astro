@@ -1,0 +1,15 @@
+---
+// bandeirinhas de festa no topo dos blocos azuis
+const alturas = [11.3, 17.5, 23.1, 28.1, 32.4, 36.1, 39.2, 41.7, 43.6, 44.8, 45.4, 45.4, 44.8, 43.6, 41.7, 39.2, 36.1, 32.4, 28.1, 23.1, 17.5, 11.3]
+const cores = ['#e02229', '#ffc928', '#ffffff', '#8ed0ff']
+---
+<div class="varal" aria-hidden="true">
+  <svg viewBox="0 0 1600 110">
+    <path d="M0 8Q800 83 1600 8" fill="none" stroke="#fff" stroke-width="3" />
+    {alturas.map((y, i) => (
+      <g transform={`translate(${(36.4 + i * 72.727).toFixed(1)} ${y})`}>
+        <path class="b" style={`--dl:${(-0.31 * i).toFixed(2)}s`} d="M-24 0h48L0 46z" fill={cores[i % 4]} />
+      </g>
+    ))}
+  </svg>
+</div>

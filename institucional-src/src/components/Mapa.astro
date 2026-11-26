@@ -1,0 +1,19 @@
+---
+import { ESCOLA } from '../dados.js'
+const quadras = [
+  'left:4%;top:8%;width:22%;height:30%', 'left:30%;top:8%;width:24%;height:30%', 'left:62%;top:8%;width:34%;height:30%',
+  'left:4%;top:54%;width:36%;height:24%', 'left:44%;top:54%;width:20%;height:24%', 'left:68%;top:54%;width:28%;height:24%',
+]
+---
+<div class="mapa" role="img" aria-label="Mapa ilustrativo com a localização da escola em Casa Amarela, Recife">
+  {quadras.map((q) => <i class="q" style={q}></i>)}
+  <i class="rio"></i>
+  <i class="r" style="left:0;right:0;top:calc(46% - 10px);height:20px"></i>
+  <i class="r" style="top:0;bottom:0;left:calc(27% - 8px);width:16px"></i>
+  <i class="r" style="top:0;bottom:0;left:calc(58% - 8px);width:16px"></i>
+  <i class="pino"></i>
+  <div class="rotulo">
+    <b>{ESCOLA.endereco} · Casa Amarela</b>
+    <a class="btn sm amar" href={ESCOLA.mapa} target="_blank" rel="noopener">Abrir no Google Maps ↗</a>
+  </div>
+</div>

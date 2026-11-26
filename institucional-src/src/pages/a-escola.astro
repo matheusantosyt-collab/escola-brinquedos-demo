@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro'
+import PaginaTopo from '../components/PaginaTopo.astro'
+import { ESTRUTURA, NUMEROS, url } from '../dados.js'
+
+const VALORES = [
+  ['Acolhimento', 'Cada criança é conhecida pelo nome, com seu tempo e seu jeito.'],
+  ['Brincar com intenção', 'O brincar é parte do aprender, planejado em cada atividade.'],
+  ['Família por perto', 'A escola e a casa conversam o tempo todo sobre o desenvolvimento da criança.'],
+  ['Inclusão', 'Espaços acessíveis e atendimento especializado para quem precisa.'],
+]
+---
+<Base titulo="A escola" descricao="História, valores, estrutura e equipe da Escola Brinquedos e Brincadeiras, em Casa Amarela, Recife, desde 2000." migalhas={[['a-escola/', 'A escola']]} schema>
+  <PaginaTopo numero="1" titulo="Uma grande família desde 2000" lead="Uma escola de bairro em Casa Amarela, onde todo mundo se conhece pelo nome." />
+
+  <section class="bloco" style="padding-top:0" aria-labelledby="t-historia">
+    <div class="wrap duas">
+      <div class="texto surge">
+        <h2 id="t-historia">Nossa história <span class="ex">exemplo</span></h2>
+        <p class="lead" style="margin-top:14px">A Escola Brinquedos e Brincadeiras abriu as portas em 2000, na Rua Conselheiro Nabuco, em Casa Amarela.</p>
+        <p>Começou com a Educação Infantil e cresceu junto com as famílias do bairro, até oferecer todo o Ensino Fundamental I. Hoje são 181 alunos e 11 professores, segundo o Censo Escolar 2024.</p>
+        <p>O nome diz muito sobre o jeito da escola: aqui o brincar não é intervalo entre as aulas, é parte de como se aprende.</p>
+      </div>
+      <div class="foto-borda surge" style="--d:1"><img src={url('img/pola1.webp')} alt="Professora segurando as mãos de uma aluna pequena que se equilibra sobre uma linha no chão" loading="lazy" /></div>
+    </div>
+  </section>
+
+  <section class="bloco bloco--creme" aria-labelledby="t-valores">
+    <div class="wrap">
+      <div class="cabeca surge">
+        <div>
+          <span class="casa" style="color:var(--azul)">2</span>
+          <h2 id="t-valores">Missão e valores <span class="ex">exemplo</span></h2>
+          <p class="lead">Educar com afeto, rigor e alegria, formando crianças curiosas, autônomas e gentis.</p>
+        </div>
+      </div>
+      <div class="cartoes" style="--col:4">
+        {VALORES.map(([t, d], i) => (
+          <div class="cartao surge" style={`--d:${i}`}>
+            <h3>{t}</h3>
+            <p class="fraco">{d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" id="estrutura" aria-labelledby="t-estrutura">
+    <div class="wrap">
+      <div class="cabeca surge">
+        <div>
+          <span class="casa" style="color:var(--verm)">3</span>
+          <h2 id="t-estrutura">Estrutura</h2>
+          <p class="lead">Uma escola pensada para criança pequena, com lugar para correr, ler, comer bem e ser acolhida.</p>
+        </div>
+      </div>
+      <div class="cartoes" style="--col:3">
+        {ESTRUTURA.map(([t, d, c], i) => (
+          <div class="cartao surge" style={`--d:${i % 3}`}>
+            <span class="icone-cor" style={`--c:${c}`}></span>
+            <h3>{t}</h3>
+            <p class="fraco">{d}</p>
+          </div>
+        ))}
+      </div>
+      <div class="galeria" style="margin-top:28px">
+        <figure class="surge"><img src={url('img/hero.webp')} alt="Aluno com o uniforme da escola" loading="lazy" /><figcaption>Uniforme</figcaption></figure>
+        <figure class="surge" style="--d:1"><img src={url('img/pola2.webp')} alt="Aluna fantasiada de fada com asas e borboletas amarelas" loading="lazy" /><figcaption>Faz de conta</figcaption></figure>
+        <figure class="surge" style="--d:2"><img src={url('img/pola3.webp')} alt="Aluna de braços abertos se equilibrando sobre uma linha verde no chão" loading="lazy" /><figcaption>Equilíbrio</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco bloco--azul" aria-labelledby="t-equipe">
+    <div class="wrap duas">
+      <div class="surge">
+        <span class="casa" style="color:var(--amar)">4</span>
+        <h2 id="t-equipe">Equipe</h2>
+        <p class="lead" style="margin-top:14px">Direção, coordenação pedagógica e 11 professores acompanham as turmas de perto.</p>
+        <p class="fraco" style="margin-top:12px">Fotos e apresentações da equipe entram aqui, com autorização de cada pessoa. <span class="ex">exemplo</span></p>
+      </div>
+      <div class="numeros" style="grid-template-columns:1fr">
+        {NUMEROS.map(([n, rotulo], i) => (
+          <div class="numero surge" style={`--d:${i}`}><b>{n}</b><span style="color:var(--tinta)">{rotulo}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

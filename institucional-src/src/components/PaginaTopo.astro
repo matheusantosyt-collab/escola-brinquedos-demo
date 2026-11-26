@@ -1,0 +1,10 @@
+---
+const { numero, titulo, lead } = Astro.props
+---
+<header class="pagina-topo">
+  <div class="wrap">
+    <span class="casa" style="color:var(--verm)">{numero}</span>
+    <h1>{titulo}</h1>
+    {lead && <p class="lead">{lead}</p>}
+  </div>
+</header>

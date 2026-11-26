@@ -1,0 +1,239 @@
+/* Site institucional: mesma identidade do demo (cores do logo, Lilita One, amarelinha),
+   em tom mais sóbrio. A brincadeira fica nos detalhes. */
+:root {
+  color-scheme: light;
+  --azul: #1c2dae;
+  --noite: #0e1663;
+  --verm: #e02229;
+  --creme: #fff6e6;
+  --papel: #fffbf3;
+  --amar: #ffc928;
+  --ceu: #8ed0ff;
+  --tinta: #141a4d;
+  --suave: #4d5488;
+  --linha: #ecdfc4;
+  --display: 'Lilita One', 'Arial Rounded MT Bold', system-ui, sans-serif;
+  --body: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+  --spring: cubic-bezier(.3, 1.7, .5, 1);
+  --wrap: 1160px;
+  --topo: 76px;
+}
+* { box-sizing: border-box }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--topo) + 16px) }
+body { margin: 0; background: var(--papel); color: var(--tinta); font: 500 17px/1.65 var(--body); -webkit-font-smoothing: antialiased }
+img { max-width: 100%; display: block }
+a { color: inherit }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.05; margin: 0; text-wrap: balance }
+h1 { font-size: clamp(2.3rem, 5vw, 3.9rem) }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem) }
+h3 { font-size: 1.35rem }
+p { margin: 0 }
+:focus-visible { outline: 4px solid var(--amar); outline-offset: 3px; border-radius: 8px }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px) }
+.lead { font-size: 1.15rem; color: var(--suave); max-width: 60ch }
+.fraco { color: var(--suave) }
+.ex { display: inline-block; font: 800 .62rem var(--body); letter-spacing: .1em; text-transform: uppercase; background: var(--amar); color: var(--tinta); border-radius: 99px; padding: 2px 8px; vertical-align: middle }
+.pular { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--amar); padding: 10px 16px; border-radius: 12px; font-weight: 800 }
+.pular:focus { top: 12px }
+
+/* entradas suaves */
+.js .surge { opacity: 0; translate: 0 28px; transition: opacity .7s ease, translate .8s cubic-bezier(.2, .9, .3, 1.15); transition-delay: calc(var(--d, 0) * 90ms) }
+.js .surge.vis { opacity: 1; translate: none }
+
+/* botões */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: 400 1.1rem var(--display); padding: 14px 26px; border-radius: 999px; border: 0; cursor: pointer; text-decoration: none; color: #fff; background: var(--c, var(--verm)); box-shadow: 0 6px 0 var(--s, #a3131a); transition: transform .25s var(--spring), box-shadow .2s }
+.btn:hover { transform: translateY(-3px); box-shadow: 0 9px 0 var(--s, #a3131a) }
+.btn:active { transform: translateY(5px); box-shadow: 0 1px 0 var(--s, #a3131a) }
+.btn.sm { padding: 10px 18px; font-size: 1rem; box-shadow: 0 4px 0 var(--s, #a3131a) }
+.btn.amar { --c: var(--amar); --s: #c99700; color: var(--tinta) }
+.btn.azul { --c: var(--azul); --s: var(--noite) }
+.liso { display: inline-flex; align-items: center; gap: 8px; font: 400 1.08rem var(--display); padding: 12px 22px; border-radius: 999px; text-decoration: none; border: 3px solid currentColor; transition: transform .3s var(--spring) }
+.liso:hover { transform: scale(1.05) }
+
+/* aviso do protótipo e cabeçalho */
+.aviso-demo { background: var(--tinta); color: #dfe3ff; font-size: .82rem; text-align: center; padding: 7px 14px }
+.topo { position: sticky; top: 0; z-index: 50; background: rgba(255, 251, 243, .9); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: box-shadow .3s, border-color .3s }
+.topo.rolou { border-color: var(--linha); box-shadow: 0 10px 30px -22px rgba(20, 26, 77, .5) }
+.topo__linha { display: flex; align-items: center; gap: 20px; min-height: var(--topo) }
+.marca { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0 }
+.marca img { width: 48px; height: 48px; border-radius: 50%; transition: transform .5s var(--spring) }
+.marca:hover img { transform: rotate(-12deg) scale(1.08) }
+.marca b { font: 400 1.12rem/1 var(--display); color: var(--azul) }
+.marca b span { color: var(--verm) }
+.marca--clara b { color: #fff }
+.marca--clara b span { color: var(--amar) }
+.menu { margin-left: auto; display: flex; align-items: center; gap: 18px }
+.menu ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0 }
+.menu ul a { display: block; text-decoration: none; font-weight: 700; font-size: .96rem; padding: 9px 14px; border-radius: 999px; transition: background .2s }
+.menu ul a:hover { background: #fff0c4 }
+.menu ul a[aria-current='page'] { background: var(--amar) }
+.menu-bt { display: none; margin-left: auto; align-items: center; gap: 10px; font: 700 1rem var(--body); color: var(--azul); background: none; border: 2px solid currentColor; border-radius: 999px; padding: 8px 16px; cursor: pointer }
+.menu-bt__icone, .menu-bt__icone::before, .menu-bt__icone::after { display: block; width: 18px; height: 2.5px; border-radius: 2px; background: currentColor; transition: transform .3s, opacity .2s }
+.menu-bt__icone { position: relative }
+.menu-bt__icone::before, .menu-bt__icone::after { content: ''; position: absolute; left: 0 }
+.menu-bt__icone::before { top: -6px }
+.menu-bt__icone::after { top: 6px }
+.aberto .menu-bt__icone { background: transparent }
+.aberto .menu-bt__icone::before { transform: translateY(6px) rotate(45deg) }
+.aberto .menu-bt__icone::after { transform: translateY(-6px) rotate(-45deg) }
+
+.migalhas ol { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 18px 0 0; font-size: .88rem; color: var(--suave) }
+.migalhas li + li::before { content: '›'; margin-right: 6px }
+.migalhas a { text-decoration: none; font-weight: 700; color: var(--azul) }
+
+/* blocos de página */
+.bloco { padding: clamp(64px, 8vw, 104px) 0 }
+.bloco--creme { background: var(--creme) }
+.bloco--azul { background: var(--azul); color: #fff }
+.bloco--azul .lead, .bloco--azul .fraco { color: #d5daff }
+.bloco--noite { background: var(--noite); color: #fff }
+.bloco--noite .lead { color: #c6ccff }
+.cabeca { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 40px }
+.cabeca .lead { margin-top: 14px }
+.casa { display: inline-grid; place-items: center; min-width: 48px; height: 48px; padding: 0 10px; border: 3px dashed currentColor; border-radius: 9px; font: 400 1.5rem var(--display); margin-bottom: 14px; rotate: -5deg }
+
+/* página interna: cabeçalho */
+.pagina-topo { padding: 34px 0 clamp(44px, 6vw, 72px); position: relative; overflow: hidden }
+.pagina-topo h1 { margin-top: 10px }
+.pagina-topo .lead { margin-top: 16px }
+.bandeiras { position: absolute; left: 0; right: 0; top: 0; height: 46px; pointer-events: none; background: radial-gradient(circle at 50% -40%, transparent 0 0) }
+
+/* início */
+.heroi { background: var(--azul); color: #fff; position: relative; overflow: hidden; padding: clamp(56px, 7vw, 96px) 0 clamp(64px, 8vw, 110px) }
+.heroi::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255, 255, 255, .1) 2px, transparent 2.5px); background-size: 26px 26px; -webkit-mask-image: linear-gradient(120deg, #000, transparent 60%); mask-image: linear-gradient(120deg, #000, transparent 60%) }
+.heroi__grade { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 5vw, 64px); align-items: center }
+.heroi h1 em { font-style: normal; color: var(--amar) }
+.heroi .lead { color: #d5daff; margin: 20px 0 30px }
+.selo { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--tinta); border-radius: 999px; padding: 6px 16px 6px 8px; font-weight: 800; font-size: .88rem; margin-bottom: 22px }
+.selo i { width: 22px; height: 22px; border-radius: 50%; background: var(--verm); color: #fff; display: grid; place-items: center; font-style: normal; font-size: .7rem }
+.acoes { display: flex; flex-wrap: wrap; gap: 16px; align-items: center }
+.heroi .liso { color: #fff }
+.heroi__foto { position: relative; max-width: 420px; margin: 0 auto; width: 100% }
+.heroi__foto img { aspect-ratio: 3 / 4; object-fit: cover; border-radius: 999px 999px 36px 36px; border: 8px solid #fff; box-shadow: 0 0 0 8px var(--verm), 0 40px 60px -24px rgba(0, 0, 0, .6) }
+.heroi__ficha { position: absolute; left: -8%; bottom: 12%; background: #fff; color: var(--tinta); border-radius: 18px; padding: 10px 16px; font-size: .82rem; font-weight: 700; line-height: 1.25; box-shadow: 0 18px 30px -16px rgba(0, 0, 0, .5); animation: quica 5s ease-in-out infinite }
+.heroi__ficha b { display: block; font: 400 1.6rem/1 var(--display); color: var(--azul) }
+@keyframes quica { 50% { transform: translateY(-8px) } }
+.varal { position: absolute; left: 0; right: 0; top: 0; line-height: 0; pointer-events: none }
+.varal svg { width: max(100%, 900px); height: auto; display: block; margin: 0 auto }
+.varal path.b { transform-box: fill-box; transform-origin: 50% 0; animation: balanca 3.4s ease-in-out infinite; animation-delay: var(--dl) }
+@keyframes balanca { 0%, 100% { transform: rotate(-8deg) } 50% { transform: rotate(8deg) } }
+
+.numeros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px }
+.numero { background: #fff; border: 2px solid var(--linha); border-radius: 26px; padding: 26px 28px }
+.numero b { display: block; font: 400 clamp(3rem, 6vw, 4.4rem)/1 var(--display); color: var(--verm) }
+.numero span { font-weight: 700 }
+.nota-fonte { margin-top: 16px; font-size: .84rem; color: var(--suave) }
+
+.cartoes { display: grid; grid-template-columns: repeat(var(--col, 2), 1fr); gap: 22px }
+.cartao { position: relative; display: flex; flex-direction: column; gap: 10px; background: #fff; border-radius: 28px; padding: 30px; border: 2px solid var(--linha); text-decoration: none; transition: transform .35s var(--spring), box-shadow .3s }
+a.cartao:hover { transform: translateY(-6px) rotate(-.6deg); box-shadow: 0 26px 40px -26px rgba(20, 26, 77, .55) }
+.cartao--cor { background: var(--c); color: var(--t, #fff); border-color: transparent; background-image: radial-gradient(rgba(255, 255, 255, .14) 3px, transparent 3.5px); background-size: 28px 28px }
+.cartao--cor p { opacity: .92 }
+.cartao h3 { font-size: 1.6rem }
+.cartao .tag { align-self: flex-start; background: #fff; color: var(--tinta); border-radius: 99px; padding: 3px 12px; font-weight: 800; font-size: .78rem }
+.cartao .mais { margin-top: auto; padding-top: 8px; font-weight: 800 }
+.icone-cor { width: 46px; height: 46px; border-radius: 14px; background: var(--c); display: grid; place-items: center }
+.icone-cor::before { content: ''; width: 16px; height: 16px; border-radius: 50%; background: #fff }
+
+.galeria { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 16px }
+.galeria figure { margin: 0; position: relative; overflow: hidden; border-radius: 26px }
+.galeria img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 5; transition: transform .6s ease }
+.galeria figure:hover img { transform: scale(1.04) }
+.galeria figcaption { position: absolute; left: 14px; bottom: 14px; background: #fff; border-radius: 99px; padding: 4px 14px; font: 400 1rem var(--display); color: var(--tinta) }
+
+.agenda { display: grid; gap: 14px }
+.evento { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; background: #fff; border-radius: 22px; padding: 18px 22px; border: 2px solid var(--linha) }
+.evento time { display: grid; place-items: center; width: 74px; height: 74px; border-radius: 18px; background: var(--azul); color: #fff; font: 400 1.7rem/1 var(--display); text-align: center }
+.evento time small { display: block; font: 800 .7rem var(--body); text-transform: uppercase; letter-spacing: .08em }
+.evento p { color: var(--suave); font-size: .95rem }
+
+.chamada { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; background: var(--verm); color: #fff; border-radius: 36px; padding: clamp(28px, 5vw, 52px); background-image: radial-gradient(rgba(255, 255, 255, .12) 2.5px, transparent 3px); background-size: 22px 22px }
+.chamada p { color: #fff; margin-top: 10px; max-width: 52ch }
+
+/* texto corrido e listas */
+.duas { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: start }
+.texto p + p { margin-top: 14px }
+.lista-check { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px }
+.lista-check li { display: flex; gap: 12px; align-items: flex-start }
+.lista-check li::before { content: '✓'; flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--amar); color: var(--tinta); display: grid; place-items: center; font-weight: 800; font-size: .8rem; margin-top: 2px }
+.foto-borda img { border-radius: 30px; border: 8px solid #fff; box-shadow: 0 30px 50px -30px rgba(20, 26, 77, .6); aspect-ratio: 4 / 5; object-fit: cover; width: 100% }
+.tabela { width: 100%; border-collapse: collapse; background: #fff; border-radius: 20px; overflow: hidden; font-size: .95rem }
+.tabela th, .tabela td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--linha) }
+.tabela th { background: var(--creme); font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--suave) }
+
+.passos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: p }
+.passos li { counter-increment: p; position: relative; background: #fff; border: 3px dashed var(--azul); border-radius: 16px; padding: 56px 20px 20px }
+.passos li::before { content: counter(p); position: absolute; top: 14px; left: 18px; font: 400 2rem/1 var(--display); color: var(--azul) }
+.passos li b { display: block; font: 400 1.2rem var(--display) }
+
+.perguntas { display: grid; gap: 10px }
+.perguntas details { background: #fff; border: 2px solid var(--linha); border-radius: 18px; padding: 4px 20px }
+.perguntas summary { cursor: pointer; font-weight: 800; padding: 14px 0; list-style: none; display: flex; justify-content: space-between; gap: 12px }
+.perguntas summary::after { content: '+'; font: 400 1.4rem/1 var(--display); color: var(--verm); transition: rotate .3s }
+.perguntas details[open] summary::after { rotate: 45deg }
+.perguntas details p { padding: 0 0 16px; color: var(--suave) }
+
+/* formulário de visita */
+.form-visita { background: #fff; border-radius: 32px; padding: clamp(22px, 3vw, 36px); border: 2px solid var(--linha); box-shadow: 0 30px 50px -36px rgba(20, 26, 77, .6) }
+.form-visita form { display: grid; gap: 14px }
+.par { display: grid; grid-template-columns: 1fr 1fr; gap: 14px }
+.campo { display: grid; gap: 6px; font-weight: 800; font-size: .88rem }
+.campo input, .campo select { font: 600 1rem var(--body); color: var(--tinta); background: #fff; border: 2px solid #dfe3f5; border-radius: 14px; padding: 12px 14px; width: 100% }
+.campo input:focus, .campo select:focus { outline: 0; border-color: var(--azul) }
+.aceite { display: grid; grid-template-columns: auto 1fr; gap: 10px; font-size: .86rem; color: var(--suave); font-weight: 600; line-height: 1.45 }
+.aceite input { width: 20px; height: 20px; accent-color: var(--azul) }
+.erro { color: var(--verm); font-weight: 800; font-size: .9rem; min-height: 1.3em }
+.feito { text-align: center }
+.feito .ok { width: 72px; height: 72px; margin: 0 auto 14px; border-radius: 50%; background: var(--azul); color: #fff; display: grid; place-items: center; font: 400 2.2rem var(--display) }
+.feito p { color: var(--suave); margin: 8px 0 20px }
+
+/* contato */
+.contatos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px }
+.contatos .cartao a { font-weight: 800; color: var(--azul) }
+.mapa { position: relative; border-radius: 30px; overflow: hidden; min-height: 280px; aspect-ratio: 2.6 / 1; background: #e4f2dc; border: 6px solid #fff; box-shadow: 0 30px 50px -34px rgba(20, 26, 77, .6) }
+.mapa i { position: absolute; display: block }
+.mapa .q { border-radius: 14px; background: #cfe6c3 }
+.mapa .r { background: #fff; box-shadow: 0 0 0 2px #d7e4cf }
+.mapa .rio { left: -5%; right: -5%; bottom: -18%; height: 42%; background: var(--ceu); border-radius: 50% 50% 0 0 / 100% 100% 0 0; rotate: -3deg }
+.mapa .pino { left: 58%; top: 46%; width: 44px; height: 44px; margin: -56px 0 0 -22px; background: var(--verm); border-radius: 50% 50% 50% 0; rotate: -45deg; border: 5px solid #fff; animation: pino 1.6s var(--spring) infinite }
+@keyframes pino { 0%, 60%, 100% { transform: none } 80% { transform: translate(10px, -10px) } }
+.mapa .rotulo { position: absolute; left: 16px; top: 16px; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; background: rgba(255, 255, 255, .92); border-radius: 22px; padding: 14px 18px; max-width: calc(100% - 32px) }
+.mapa .rotulo b { font: 400 1.15rem var(--display) }
+
+/* rodapé */
+.rodape { background: var(--noite); color: #c6ccff; padding: 64px 0 28px; font-size: .95rem }
+.rodape__grade { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px }
+.rodape h2 { font-size: 1.15rem; color: #fff; margin-bottom: 12px }
+.rodape ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px }
+.rodape a { text-decoration: none }
+.rodape a:hover { color: var(--amar) }
+.rodape p { margin-top: 14px; max-width: 34ch }
+.rodape__legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 20px; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .15); font-size: .84rem }
+
+.zap { position: fixed; right: 18px; bottom: 18px; z-index: 40; width: 58px; height: 58px; border-radius: 50%; background: #1faa59; display: grid; place-items: center; box-shadow: 0 14px 22px -10px rgba(0, 0, 0, .5); transition: transform .3s var(--spring) }
+.zap:hover { transform: scale(1.1) rotate(-8deg) }
+.zap svg { width: 28px; fill: #fff }
+
+/* responsivo */
+@media (max-width: 980px) {
+  .menu-bt { display: inline-flex }
+  .menu { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; align-items: stretch; gap: 12px; background: var(--papel); padding: 12px 20px 22px; border-bottom: 1px solid var(--linha); box-shadow: 0 20px 30px -24px rgba(20, 26, 77, .5) }
+  .aberto .menu { display: flex }
+  .menu ul { flex-direction: column }
+  .menu ul a { padding: 12px 14px; font-size: 1.05rem }
+  .heroi__grade, .duas { grid-template-columns: 1fr }
+  .heroi__ficha { left: 0 }
+  .cartoes, .contatos { --col: 2; grid-template-columns: repeat(2, 1fr) }
+  .rodape__grade { grid-template-columns: 1fr 1fr }
+  .galeria { grid-template-columns: 1fr 1fr }
+  .galeria figure:first-child { grid-column: 1 / -1 }
+  .galeria figure:first-child img { aspect-ratio: 16 / 10 }
+}
+@media (max-width: 640px) {
+  body { font-size: 16px }
+  .marca b { font-size: 1rem }
+  .numeros, .cartoes, .contatos, .passos, .par, .rodape__grade { grid-template-columns: 1fr }
+  .numero { padding: 20px 22px }
+  .mapa { aspect-ratio: 1.1 / 1 }
+  .evento { grid-template-columns: 1fr; gap: 12px }
+}

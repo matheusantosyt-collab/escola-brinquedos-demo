@@ -1,0 +1,144 @@
+---
+import '../styles/institucional.css'
+import { ESCOLA, MENU, url } from '../dados.js'
+
+const { titulo, descricao, migalhas = [], schema = false } = Astro.props
+const caminho = Astro.url.pathname
+const atual = (p) => (p === '' ? caminho === url('') : caminho.startsWith(url(p)))
+const canonico = new URL(caminho, Astro.site).href
+const tituloCompleto = titulo ? `${titulo} · ${ESCOLA.nome}` : `${ESCOLA.nome} · Educação Infantil e Fundamental I em Casa Amarela`
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'School',
+  name: ESCOLA.nome,
+  foundingDate: '2000',
+  telephone: '+55-81-3265-2783',
+  address: { '@type': 'PostalAddress', streetAddress: ESCOLA.endereco, addressLocality: 'Recife', addressRegion: 'PE', postalCode: ESCOLA.cep, addressCountry: 'BR' },
+  sameAs: [ESCOLA.instagram, ESCOLA.tiktok],
+}
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#1c2dae" />
+    <script is:inline>document.documentElement.classList.add('js')</script>
+    <title>{tituloCompleto}</title>
+    <meta name="description" content={descricao} />
+    <link rel="canonical" href={canonico} />
+    <link rel="icon" href={url('img/logo.webp')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={ESCOLA.nome} />
+    <meta property="og:title" content={tituloCompleto} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:url" content={canonico} />
+    <meta property="og:image" content={new URL(url('img/hero.webp'), Astro.site).href} />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=DM+Sans:opsz,wght@9..40,400..800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+    <div class="aviso-demo">Protótipo de site institucional · textos marcados como <span class="ex">exemplo</span> serão definidos com a escola</div>
+    <header class="topo">
+      <div class="wrap topo__linha">
+        <a class="marca" href={url('')} aria-label={`${ESCOLA.nome}, página inicial`}>
+          <img src={url('img/logo.webp')} alt="" width="48" height="48" />
+          <b>Brinquedos<span> &amp; Brincadeiras</span></b>
+        </a>
+        <button class="menu-bt" type="button" aria-expanded="false" aria-controls="menu-principal">
+          <span class="menu-bt__icone" aria-hidden="true"></span>Menu
+        </button>
+        <nav id="menu-principal" class="menu" aria-label="Principal">
+          <ul>
+            {MENU.map(([p, nome]) => (
+              <li><a href={url(p)} aria-current={atual(p) ? 'page' : undefined}>{nome}</a></li>
+            ))}
+          </ul>
+          <a class="btn sm" href={url('matriculas/#visita')}>Agendar visita</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      {migalhas.length > 0 && (
+        <nav class="migalhas wrap" aria-label="Você está em">
+          <ol>
+            <li><a href={url('')}>Início</a></li>
+            {migalhas.map(([p, nome], i) => (
+              <li>{i === migalhas.length - 1 ? <span aria-current="page">{nome}</span> : <a href={url(p)}>{nome}</a>}</li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      <slot />
+    </main>
+
+    <footer class="rodape">
+      <div class="wrap rodape__grade">
+        <div>
+          <a class="marca marca--clara" href={url('')}>
+            <img src={url('img/logo.webp')} alt="" width="44" height="44" />
+            <b>Brinquedos<span> &amp; Brincadeiras</span></b>
+          </a>
+          <p>Educação Infantil e Ensino Fundamental I em Casa Amarela, Recife. Uma grande família desde 2000.</p>
+        </div>
+        <div>
+          <h2>Navegue</h2>
+          <ul>{MENU.map(([p, nome]) => <li><a href={url(p)}>{nome}</a></li>)}</ul>
+        </div>
+        <div>
+          <h2>Contato</h2>
+          <ul>
+            <li>{ESCOLA.endereco}<br />{ESCOLA.bairro} · {ESCOLA.cep}</li>
+            <li><a href={ESCOLA.telLink}>{ESCOLA.telefone}</a></li>
+            <li><a href={ESCOLA.zap} target="_blank" rel="noopener">WhatsApp {ESCOLA.whatsapp}</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Redes</h2>
+          <ul>
+            <li><a href={ESCOLA.instagram} target="_blank" rel="noopener">Instagram @escolabb</a></li>
+            <li><a href={ESCOLA.tiktok} target="_blank" rel="noopener">TikTok @escolabb</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="wrap rodape__legal">
+        <span>© 2026 {ESCOLA.nome}</span>
+        <span>CNPJ <span class="ex">exemplo</span> · <a href={url('contato/#privacidade')}>Política de Privacidade</a></span>
+      </div>
+    </footer>
+
+    <a class="zap" href={`${ESCOLA.zap}?text=${encodeURIComponent('Olá! Gostaria de agendar uma visita.')}`} target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1.1.1-1.7-.1-1.6-.5-3.5-1.5-5.2-4.2-1.2-1.8-1.3-3.2-.3-4.3.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2 0 .4-.1.6l-.7.9c.7 1.3 1.8 2.3 3.2 2.9l.9-1c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3 0 .2 0 .4-.2.6z" /></svg>
+    </a>
+
+    <script>
+      // menu do celular
+      const bt = document.querySelector('.menu-bt')
+      const topo = document.querySelector('.topo')
+      bt?.addEventListener('click', () => bt.setAttribute('aria-expanded', String(topo.classList.toggle('aberto'))))
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && topo.classList.contains('aberto')) {
+          topo.classList.remove('aberto')
+          bt.setAttribute('aria-expanded', 'false')
+          bt.focus()
+        }
+      })
+      // cabeçalho ganha sombra ao rolar
+      const sombra = () => topo.classList.toggle('rolou', scrollY > 8)
+      addEventListener('scroll', sombra, { passive: true })
+      sombra()
+      // entradas suaves dos blocos marcados com .surge
+      const io = new IntersectionObserver(
+        (es) => es.forEach((e) => e.isIntersecting && (e.target.classList.add('vis'), io.unobserve(e.target))),
+        { threshold: 0.12 }
+      )
+      document.querySelectorAll('.surge').forEach((el) => io.observe(el))
+    </script>
+  </body>
+</html>

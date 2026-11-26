@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro'
+import PaginaTopo from '../components/PaginaTopo.astro'
+import Mapa from '../components/Mapa.astro'
+import { ESCOLA, url } from '../dados.js'
+---
+<Base titulo="Contato" descricao="Endereço, telefone, WhatsApp e redes sociais da Escola Brinquedos e Brincadeiras, na Rua Conselheiro Nabuco, 336, Casa Amarela, Recife." migalhas={[['contato/', 'Contato']]} schema>
+  <PaginaTopo numero="5" titulo="Fale com a escola" lead="A secretaria atende pelo telefone, pelo WhatsApp e pessoalmente." />
+
+  <section class="bloco" style="padding-top:0" aria-label="Canais de contato">
+    <div class="wrap">
+      <div class="contatos">
+        <div class="cartao surge">
+          <span class="icone-cor" style="--c:var(--verm)"></span>
+          <h3>Endereço</h3>
+          <p class="fraco">{ESCOLA.endereco}<br />{ESCOLA.bairro}<br />CEP {ESCOLA.cep}</p>
+          <a href={ESCOLA.mapa} target="_blank" rel="noopener">Abrir no mapa ↗</a>
+        </div>
+        <div class="cartao surge" style="--d:1">
+          <span class="icone-cor" style="--c:var(--azul)"></span>
+          <h3>Telefone e WhatsApp</h3>
+          <p class="fraco">Telefone <a href={ESCOLA.telLink}>{ESCOLA.telefone}</a><br />WhatsApp <a href={ESCOLA.zap} target="_blank" rel="noopener">{ESCOLA.whatsapp}</a></p>
+        </div>
+        <div class="cartao surge" style="--d:2">
+          <span class="icone-cor" style="--c:#a06c00"></span>
+          <h3>Atendimento <span class="ex">exemplo</span></h3>
+          <p class="fraco">Segunda a sexta, das 7h às 18h.<br />Instagram <a href={ESCOLA.instagram} target="_blank" rel="noopener">@escolabb</a><br />TikTok <a href={ESCOLA.tiktok} target="_blank" rel="noopener">@escolabb</a></p>
+        </div>
+      </div>
+      <div class="surge" style="margin-top:28px"><Mapa /></div>
+    </div>
+  </section>
+
+  <section class="bloco bloco--creme" aria-labelledby="t-trabalhe">
+    <div class="wrap duas">
+      <div class="surge">
+        <h2 id="t-trabalhe">Trabalhe conosco <span class="ex">exemplo</span></h2>
+        <p class="lead" style="margin-top:14px">Quer fazer parte da equipe? Entregue seu currículo na secretaria ou fale pelo WhatsApp.</p>
+      </div>
+      <div class="surge" style="--d:1" id="privacidade">
+        <h2>Política de Privacidade <span class="ex">exemplo</span></h2>
+        <p class="fraco" style="margin-top:14px"><b>O que coletamos:</b> nome, WhatsApp, etapa de interesse e horário preferido, quando você agenda uma visita.</p>
+        <p class="fraco" style="margin-top:8px"><b>Para quê:</b> retornar o pedido de visita. Novidades só são enviadas a quem marcou a opção.</p>
+        <p class="fraco" style="margin-top:8px"><b>Seus direitos:</b> pedir acesso, correção ou exclusão dos seus dados pelos canais da escola.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" aria-label="Agendar visita">
+    <div class="wrap">
+      <div class="chamada surge">
+        <div>
+          <h2>Venha conhecer a escola</h2>
+          <p>Agende uma visita e converse com a coordenação.</p>
+        </div>
+        <a class="btn amar" href={url('matriculas/#visita')}>Agendar visita</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro'
+import PaginaTopo from '../components/PaginaTopo.astro'
+import FormVisita from '../components/FormVisita.jsx'
+import { url } from '../dados.js'
+
+const DOCUMENTOS = [
+  'Certidão de nascimento da criança',
+  'Documento com foto e CPF dos responsáveis',
+  'Comprovante de residência',
+  'Cartão de vacinação atualizado',
+  'Declaração de transferência e histórico (Fundamental I)',
+]
+const PERGUNTAS = [
+  ['Posso visitar a escola antes de matricular?', 'Sim. Agende pelo formulário desta página e a secretaria confirma o melhor horário pelo WhatsApp.'],
+  ['A partir de que idade a escola recebe crianças?', 'A Educação Infantil atende os primeiros anos. As idades por turma serão confirmadas com a secretaria.'],
+  ['Há turmas de manhã e de tarde?', 'Sim, há opções nos dois turnos, conforme a disponibilidade de vagas de cada turma.'],
+  ['A escola atende crianças com deficiência?', 'Sim. A escola tem rampas, banheiro adaptado e sala de recursos com atendimento especializado.'],
+  ['Como faço a rematrícula?', 'A rematrícula segue o calendário divulgado pela secretaria às famílias.'],
+]
+---
+<Base titulo="Matrículas 2027" descricao="Matrículas 2027 abertas na Escola Brinquedos e Brincadeiras. Passo a passo, documentos, perguntas frequentes e agendamento de visita." migalhas={[['matriculas/', 'Matrículas']]}>
+  <PaginaTopo numero="céu" titulo="Matrículas 2027 abertas" lead="Faça parte desta grande família! São três pulinhos, e a conversa continua pelo WhatsApp." />
+
+  <section class="bloco" style="padding-top:0" aria-labelledby="t-passos">
+    <div class="wrap">
+      <h2 id="t-passos" class="surge" style="margin-bottom:24px">Como funciona</h2>
+      <ol class="passos">
+        <li class="surge"><b>Agende a visita</b><span class="fraco">Preencha o formulário abaixo com o melhor horário.</span></li>
+        <li class="surge" style="--d:1"><b>Conheça a escola</b><span class="fraco">Visite os espaços e converse com a coordenação.</span></li>
+        <li class="surge" style="--d:2"><b>Garanta a vaga</b><span class="fraco">A secretaria orienta os documentos e a assinatura do contrato.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="bloco bloco--creme" id="visita" aria-labelledby="t-visita">
+    <div class="wrap duas">
+      <div class="surge">
+        <h2 id="t-visita">Agende sua visita</h2>
+        <p class="lead" style="margin-top:14px">Escolha a etapa e o turno. Ao enviar, o WhatsApp da escola abre com a mensagem pronta e o número do protocolo.</p>
+        <h3 style="margin-top:32px">Documentos para a matrícula <span class="ex">exemplo</span></h3>
+        <ul class="lista-check">{DOCUMENTOS.map((d) => <li>{d}</li>)}</ul>
+      </div>
+      <div class="surge" style="--d:1">
+        <FormVisita client:visible privacidade={url('contato/#privacidade')} />
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" aria-labelledby="t-faq">
+    <div class="wrap duas">
+      <div class="surge">
+        <span class="casa" style="color:var(--azul)">?</span>
+        <h2 id="t-faq">Perguntas frequentes <span class="ex">exemplo</span></h2>
+        <p class="lead" style="margin-top:14px">Não achou o que procurava? Fale com a secretaria pelo WhatsApp.</p>
+      </div>
+      <div class="perguntas surge" style="--d:1">
+        {PERGUNTAS.map(([p, r]) => (
+          <details><summary>{p}</summary><p>{r}</p></details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

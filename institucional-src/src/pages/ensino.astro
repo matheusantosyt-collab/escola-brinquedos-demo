@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro'
+import PaginaTopo from '../components/PaginaTopo.astro'
+import { url } from '../dados.js'
+
+const ROTINA = [
+  ['Chegada e acolhida', '7h30', '13h30'],
+  ['Roda de conversa', '8h', '14h'],
+  ['Atividades da turma', '8h30', '14h30'],
+  ['Lanche e parque', '9h30', '15h30'],
+  ['Projetos, leitura e jogos', '10h15', '16h15'],
+  ['Saída', '11h30', '17h30'],
+]
+---
+<Base titulo="Ensino" descricao="Proposta pedagógica, Educação Infantil e Ensino Fundamental I (1º ao 5º ano) na Escola Brinquedos e Brincadeiras, em Casa Amarela, Recife." migalhas={[['ensino/', 'Ensino']]}>
+  <PaginaTopo numero="2" titulo="Do primeiro passo ao 5º ano" lead="A criança começa na Educação Infantil e segue até o fim do Fundamental I na mesma escola, com os mesmos amigos." />
+
+  <section class="bloco" style="padding-top:0" aria-labelledby="t-proposta">
+    <div class="wrap duas">
+      <div class="texto surge">
+        <h2 id="t-proposta">Proposta pedagógica <span class="ex">exemplo</span></h2>
+        <p class="lead" style="margin-top:14px">Aprender brincando, com intenção: cada jogo, história e projeto tem um objetivo de aprendizagem.</p>
+        <ul class="lista-check">
+          <li>Brinquedos pedagógicos, jogos educativos, parque e pátio na rotina de todas as turmas.</li>
+          <li>Leitura e escrita com base sólida, respeitando o tempo de cada criança.</li>
+          <li>Projetos que ligam a sala de aula ao bairro e à vida da família.</li>
+          <li>Acompanhamento de perto e conversa frequente com os responsáveis.</li>
+        </ul>
+      </div>
+      <div class="foto-borda surge" style="--d:1"><img src={url('img/pola2.webp')} alt="Aluna fantasiada de fada com asas e borboletas amarelas" loading="lazy" /></div>
+    </div>
+  </section>
+
+  <section class="bloco bloco--creme" id="infantil" aria-labelledby="t-infantil">
+    <div class="wrap duas">
+      <div class="cartao cartao--cor surge" style="--c:var(--verm)">
+        <span class="tag">Os primeiros anos</span>
+        <h3 id="t-infantil" style="font-size:2rem">Educação Infantil</h3>
+        <p>Movimento, faz de conta e convivência. Cada conquista é acompanhada de perto pela professora.</p>
+      </div>
+      <div class="texto surge" style="--d:1">
+        <h2>O que a criança vive aqui</h2>
+        <ul class="lista-check">
+          <li>Brincadeiras de movimento, música e artes todos os dias.</li>
+          <li>Primeiros contatos com letras e números a partir do brincar.</li>
+          <li>Autonomia na rotina: lanche, cuidado com os materiais, combinados da turma.</li>
+          <li>Turmas por faixa etária <span class="ex">exemplo</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" id="fundamental" aria-labelledby="t-fundamental">
+    <div class="wrap duas">
+      <div class="texto surge">
+        <h2>Do 1º ao 5º ano</h2>
+        <ul class="lista-check">
+          <li>Alfabetização consolidada nos primeiros anos, com leitura diária.</li>
+          <li>Matemática com material concreto, jogos e resolução de problemas.</li>
+          <li>Ciências, história e geografia a partir de projetos.</li>
+          <li>Avaliação contínua e boletim por etapa <span class="ex">exemplo</span></li>
+        </ul>
+      </div>
+      <div class="cartao cartao--cor surge" style="--c:var(--azul);--d:1">
+        <span class="tag">1º ao 5º ano</span>
+        <h3 id="t-fundamental" style="font-size:2rem">Ensino Fundamental I</h3>
+        <p>Leitura, escrita e raciocínio com base sólida, sem perder a curiosidade de quem aprende brincando.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco bloco--creme" aria-labelledby="t-rotina">
+    <div class="wrap duas">
+      <div class="surge">
+        <span class="casa" style="color:var(--azul)">3</span>
+        <h2 id="t-rotina">Um dia na escola <span class="ex">exemplo</span></h2>
+        <p class="lead" style="margin-top:14px">Turnos da manhã e da tarde. Os horários reais serão confirmados com a secretaria.</p>
+      </div>
+      <div class="surge" style="--d:1; overflow-x:auto">
+        <table class="tabela">
+          <thead><tr><th scope="col">Momento</th><th scope="col">Manhã</th><th scope="col">Tarde</th></tr></thead>
+          <tbody>{ROTINA.map(([m, a, b]) => <tr><th scope="row" style="background:none;text-transform:none;letter-spacing:0;font-size:.95rem;color:var(--tinta)">{m}</th><td>{a}</td><td>{b}</td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" aria-labelledby="t-inclusao">
+    <div class="wrap">
+      <div class="chamada surge" style="background-color:#23824a">
+        <div>
+          <h2 id="t-inclusao">Inclusão e sala de recursos</h2>
+          <p>Rampas, banheiro adaptado e atendimento educacional especializado na sala de recursos, em parceria com a família.</p>
+        </div>
+        <a class="btn amar" href={url('matriculas/#visita')}>Conversar com a coordenação</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,143 @@
+---
+import Base from '../layouts/Base.astro'
+import Varal from '../components/Varal.astro'
+import { NUMEROS, url } from '../dados.js'
+import { SEMENTE, ordenaRecados } from '../../../react-src/src/lib/mural.js'
+import { hoje } from '../../../react-src/src/lib/datas.js'
+
+const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
+const agenda = ordenaRecados(SEMENTE, 'todos', hoje())
+const MOTIVOS = [
+  ['Escola de bairro', 'Turmas acolhedoras, onde todo mundo se conhece pelo nome e a família participa.', 'var(--verm)'],
+  ['Do primeiro passo ao 5º ano', 'A criança faz a Educação Infantil e o Fundamental I na mesma escola, com os mesmos amigos.', 'var(--azul)'],
+  ['Brincar todo dia', 'Parque, pátios e jogos educativos fazem parte da rotina de todas as turmas.', '#a06c00'],
+  ['Inclusão de verdade', 'Rampas, banheiro adaptado e sala de recursos com atendimento especializado.', '#23824a'],
+]
+---
+<Base descricao="Escola Brinquedos e Brincadeiras, em Casa Amarela, Recife. Educação Infantil e Ensino Fundamental I desde 2000. Matrículas 2027 abertas." schema>
+  <section class="heroi">
+    <Varal />
+    <div class="wrap heroi__grade">
+      <div>
+        <span class="selo"><i>★</i>Matrículas 2027 abertas</span>
+        <h1>Brincar é o jeito mais <em>divertido</em> de aprender.</h1>
+        <p class="lead">Educação Infantil e Ensino Fundamental I em Casa Amarela, no Recife. Uma grande família desde 2000.</p>
+        <div class="acoes">
+          <a class="btn" href={url('matriculas/#visita')}>Agendar uma visita</a>
+          <a class="liso" href={url('ensino/')}>Conheça a proposta →</a>
+        </div>
+      </div>
+      <div class="heroi__foto">
+        <img src={url('img/hero.webp')} alt="Aluno com o uniforme da escola na campanha Matrículas 2027 abertas" width="420" height="560" />
+        <div class="heroi__ficha"><b>2000</b>ano em que tudo começou</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" aria-labelledby="t-numeros">
+    <div class="wrap">
+      <h2 id="t-numeros" class="surge">A escola em números</h2>
+      <div class="numeros" style="margin-top:28px">
+        {NUMEROS.map(([n, rotulo], i) => (
+          <div class="numero surge" style={`--d:${i}`}><b>{n}</b><span>{rotulo}</span></div>
+        ))}
+      </div>
+      <p class="nota-fonte">Alunos e professores: Censo Escolar 2024 (Inep). Fundação em 2000, conforme registro da empresa.</p>
+    </div>
+  </section>
+
+  <section class="bloco bloco--creme" aria-labelledby="t-etapas">
+    <div class="wrap">
+      <div class="cabeca surge">
+        <div>
+          <span class="casa" style="color:var(--azul)">2</span>
+          <h2 id="t-etapas">Duas etapas, um só caminho</h2>
+          <p class="lead">Da primeira infância ao fim do Fundamental I, com acompanhamento de perto em cada fase.</p>
+        </div>
+        <a class="liso" href={url('ensino/')} style="color:var(--azul)">Ver a proposta pedagógica →</a>
+      </div>
+      <div class="cartoes">
+        <a class="cartao cartao--cor surge" style="--c:var(--verm)" href={url('ensino/#infantil')}>
+          <span class="tag">Os primeiros anos</span>
+          <h3>Educação Infantil</h3>
+          <p>Movimento, faz de conta e convivência. Cada conquista é acompanhada de perto pela professora.</p>
+          <span class="mais">Saiba mais →</span>
+        </a>
+        <a class="cartao cartao--cor surge" style="--c:var(--azul);--d:1" href={url('ensino/#fundamental')}>
+          <span class="tag">1º ao 5º ano</span>
+          <h3>Ensino Fundamental I</h3>
+          <p>Leitura, escrita e raciocínio com base sólida, sem perder a curiosidade de quem aprende brincando.</p>
+          <span class="mais">Saiba mais →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" aria-labelledby="t-motivos">
+    <div class="wrap">
+      <h2 id="t-motivos" class="surge">Por que escolher a Brinquedos &amp; Brincadeiras</h2>
+      <div class="cartoes" style="--col:4;margin-top:32px">
+        {MOTIVOS.map(([t, d, c], i) => (
+          <div class="cartao surge" style={`--d:${i}`}>
+            <span class="icone-cor" style={`--c:${c}`}></span>
+            <h3>{t}</h3>
+            <p class="fraco">{d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco bloco--creme" aria-labelledby="t-estrutura">
+    <div class="wrap">
+      <div class="cabeca surge">
+        <div>
+          <span class="casa" style="color:var(--verm)">3</span>
+          <h2 id="t-estrutura">Espaço para brincar e aprender</h2>
+        </div>
+        <a class="liso" href={url('a-escola/#estrutura')} style="color:var(--verm)">Conheça a estrutura →</a>
+      </div>
+      <div class="galeria">
+        <figure class="surge"><img src={url('img/pola1.webp')} alt="Professora segurando as mãos de uma aluna pequena que se equilibra sobre uma linha no chão" loading="lazy" /><figcaption>De mãos dadas</figcaption></figure>
+        <figure class="surge" style="--d:1"><img src={url('img/pola2.webp')} alt="Aluna fantasiada de fada com asas e borboletas amarelas" loading="lazy" /><figcaption>Faz de conta</figcaption></figure>
+        <figure class="surge" style="--d:2"><img src={url('img/pola3.webp')} alt="Aluna de braços abertos se equilibrando sobre uma linha verde no chão" loading="lazy" /><figcaption>Equilíbrio</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" aria-labelledby="t-agenda">
+    <div class="wrap duas">
+      <div class="surge">
+        <span class="casa" style="color:var(--azul)">4</span>
+        <h2 id="t-agenda">Agenda e notícias</h2>
+        <p class="lead" style="margin-top:14px">Eventos e avisos publicados pela secretaria. No site real, cada um ganha sua própria página.</p>
+      </div>
+      <div class="agenda">
+        {agenda.map((r, i) => {
+          const [, m, d] = r.data.split('-')
+          return (
+            <article class="evento surge" style={`--d:${i}`}>
+              <time datetime={r.data}>{+d}<small>{MESES[+m - 1]}</small></time>
+              <div>
+                <h3>{r.titulo} {r.ex && <span class="ex">exemplo</span>}</h3>
+                <p>{r.texto}</p>
+              </div>
+            </article>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" style="padding-top:0">
+    <div class="wrap">
+      <div class="chamada surge">
+        <div>
+          <h2>Matrículas 2027 abertas</h2>
+          <p>Venha conhecer a escola. Em três passos você agenda a visita e a conversa continua pelo WhatsApp.</p>
+        </div>
+        <a class="btn amar" href={url('matriculas/#visita')}>Agendar visita</a>
+      </div>
+    </div>
+  </section>
+</Base>
