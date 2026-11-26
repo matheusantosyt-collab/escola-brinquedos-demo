@@ -81,7 +81,7 @@ const VALORES = [
       </div>
       <div class="numeros" style="grid-template-columns:1fr">
         {NUMEROS.map(([n, rotulo], i) => (
-          <div class="numero surge" style={`--d:${i}`}><b>{n}</b><span style="color:var(--tinta)">{rotulo}</span></div>
+          <div class="numero surge" style={`--d:${i}`}><b data-conta={n}>{n}</b><span style="color:var(--tinta)">{rotulo}</span></div>
         ))}
       </div>
     </div>

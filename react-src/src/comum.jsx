@@ -25,9 +25,9 @@ export const Uso = ({ id, box = '0 0 40 40', ...p }) => (
   </svg>
 )
 
-/** Entrada das seções: AnimatedContent (React Bits) com o "pulo" da página original. */
+/** Entrada das seções: AnimatedContent (React Bits) com o "pulo" da página original; repete ao voltar. */
 export const Surge = (props) => (
-  <AnimatedContent distance={46} duration={0.9} ease="back.out(1.6)" rotate={-2} threshold={0.12} {...props} />
+  <AnimatedContent distance={46} duration={0.9} ease="back.out(1.6)" rotate={-2} threshold={0.12} once={false} {...props} />
 )
 
 const GOTAS = [

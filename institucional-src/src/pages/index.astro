@@ -39,7 +39,7 @@ const MOTIVOS = [
       <h2 id="t-numeros" class="surge">A escola em números</h2>
       <div class="numeros" style="margin-top:28px">
         {NUMEROS.map(([n, rotulo], i) => (
-          <div class="numero surge" style={`--d:${i}`}><b>{n}</b><span>{rotulo}</span></div>
+          <div class="numero surge" style={`--d:${i}`}><b data-conta={n}>{n}</b><span>{rotulo}</span></div>
         ))}
       </div>
       <p class="nota-fonte">Alunos e professores: Censo Escolar 2024 (Inep). Fundação em 2000, conforme registro da empresa.</p>
